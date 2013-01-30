@@ -13,7 +13,7 @@ Gem::Specification.new do |gem|
   gem.email        = "njones@appcelerator.com"
   gem.authors      = ["James O'Brien (orginal author)", "Nika Jones"]
   gem.homepage     = "https://github.com/njones/marketo_gem"
-  gem.files        = Dir['lib/**/*.rb']
+  gem.files         = `git ls-files`.split($/)
   gem.require_path = ['lib']
   gem.test_files   = Dir['spec/**/*_spec.rb']
   gem.version      = "1.2.5"
