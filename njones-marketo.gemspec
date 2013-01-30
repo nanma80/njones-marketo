@@ -1,3 +1,7 @@
+# -*- encoding: utf-8 -*-
+lib = File.expand_path('../lib', __FILE__)
+$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
+
 Gem::Specification.new do |gem|
   gem.name        = "njones-marketo"
   gem.summary     = "A client for using the marketo API"
@@ -17,5 +21,5 @@ Gem::Specification.new do |gem|
   gem.rdoc_options << '--title' << 'Marketo Client Gem' << '--main' << 'Rapleaf::Marketo::Client'
 
   gem.add_development_dependency('rspec', '>= 2.3.0')
-  gem.add_dependency('savon', '>= 0.8.3')
+  gem.add_dependency('savon', '~> 0.8.3')
 end
