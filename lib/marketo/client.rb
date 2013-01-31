@@ -4,7 +4,7 @@ module Rapleaf
   module Marketo
     
     def self.new_client(access_key, secret_key, api_version='1.7', api_subdomain='na-c')
-      
+      puts "initializing client"
       api_version = api_version.sub(".", "_")
       client = Savon::Client.new do
         wsdl.endpoint     = "https://#{api_subdomain}.marketo.com/soap/mktows/#{api_version}"
@@ -206,8 +206,7 @@ module Rapleaf
         rescue  => e
           @logger.log(e) if @logger
           raise e
-          return nil
-          # return @client.http
+          # return nil
         end
       end
 
