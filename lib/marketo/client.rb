@@ -192,6 +192,7 @@ module Rapleaf
       def get_lead(lead_key)
         begin
           response = send_request("ns1:paramsGetLead", {:lead_key => lead_key.to_hash})
+          puts response
           lead_record = response[:success_get_lead][:result][:lead_record_list][:lead_record]
 
           # lead_record may be a hash or an array of hashes
