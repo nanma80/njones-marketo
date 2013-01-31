@@ -4,7 +4,7 @@ module Rapleaf
   module Marketo
     
     def self.new_client(access_key, secret_key, api_version='1.7', api_subdomain='na-c')
-      puts "initializing client"
+
       api_version = api_version.sub(".", "_")
       client = Savon::Client.new do
         wsdl.endpoint     = "https://#{api_subdomain}.marketo.com/soap/mktows/#{api_version}"
@@ -192,7 +192,6 @@ module Rapleaf
       def get_lead(lead_key)
         begin
           response = send_request("ns1:paramsGetLead", {:lead_key => lead_key.to_hash})
-          puts response
           lead_record = response[:success_get_lead][:result][:lead_record_list][:lead_record]
 
           # lead_record may be a hash or an array of hashes
