@@ -204,6 +204,7 @@ module Rapleaf
           return leads
         rescue  => e
           @logger.log(e) if @logger
+          raise e
           return nil
           # return @client.http
         end
