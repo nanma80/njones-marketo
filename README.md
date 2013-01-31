@@ -26,3 +26,9 @@ In ruby file:
     puts client.get_lead_by_email('xxx@example.com')
 
     puts client.get_leads(:batchSize => 10)
+
+In command line:
+
+    bundle install
+
+    bundle exec ruby xxxx.rb
