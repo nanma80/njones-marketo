@@ -73,7 +73,7 @@ module Rapleaf
 
       def get_leads(options = {})
         begin
-          @logger.debug "#get_leads(#{options})"
+          @logger.debug "#get_leads(#{options})" if @logger
           response = send_request("ns1:paramsGetMultipleLeads", options)
           leads = []
           response[:success_get_multiple_leads][:result][:lead_record_list][:lead_record].each do |savon_hash|
@@ -192,10 +192,20 @@ module Rapleaf
       def get_lead(lead_key)
         begin
           response = send_request("ns1:paramsGetLead", {:lead_key => lead_key.to_hash})
-          return LeadRecord.from_hash(response[:success_get_lead][:result][:lead_record_list][:lead_record])
+          lead_record = response[:success_get_lead][:result][:lead_record_list][:lead_record]
+
+          # lead_record may be a hash or an array of hashes
+          return LeadRecord.from_hash(lead_record) if lead_record.kind_of?(Hash)
+          
+          leads = []
+          lead_record.each do |savon_hash|
+            leads << LeadRecord.from_hash(savon_hash)
+          end
+          return leads
         rescue  => e
           @logger.log(e) if @logger
           return nil
+          # return @client.http
         end
       end
 

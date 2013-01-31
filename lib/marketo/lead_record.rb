@@ -54,6 +54,10 @@ module Rapleaf
         @idnum == other.idnum &&
         @email == other.email
       end
+
+      def to_s
+        "#{get_attribute('FirstName')} #{get_attribute('LastName')} #{get_attribute('Email')} #{idnum}"
+      end
     end
   end
 end
