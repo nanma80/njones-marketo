@@ -9,8 +9,8 @@ module Rapleaf
       client = Savon::Client.new do
         wsdl.endpoint     = "https://#{api_subdomain}.marketo.com/soap/mktows/#{api_version}"
         wsdl.document     = "http://app.marketo.com/soap/mktows/#{api_version}?WSDL"
-        http.read_timeout = 180
-        http.open_timeout = 180
+        http.read_timeout = 300
+        http.open_timeout = 300
         http.headers      = {"Connection" => "Keep-Alive"}
       end
 
@@ -76,6 +76,9 @@ module Rapleaf
           @logger.debug "#get_leads(#{options})" if @logger
           response = send_request("ns1:paramsGetMultipleLeads", options)
           leads = []
+
+          return leads if response[:success_get_multiple_leads][:result][:return_count] == '0'
+
           response[:success_get_multiple_leads][:result][:lead_record_list][:lead_record].each do |savon_hash|
             leads << LeadRecord.from_hash(savon_hash)
           end
