@@ -9,8 +9,8 @@ module Rapleaf
       client = Savon::Client.new do
         wsdl.endpoint     = "https://#{api_subdomain}.marketo.com/soap/mktows/#{api_version}"
         wsdl.document     = "http://app.marketo.com/soap/mktows/#{api_version}?WSDL"
-        http.read_timeout = 90
-        http.open_timeout = 90
+        http.read_timeout = 180
+        http.open_timeout = 180
         http.headers      = {"Connection" => "Keep-Alive"}
       end
 

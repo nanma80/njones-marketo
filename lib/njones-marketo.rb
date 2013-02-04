@@ -2,7 +2,8 @@ require 'rubygems'
 require 'savon'
 
 Savon.configure do |config|
-  config.log = false # disable logging
+  # config.log = false # disable logging
+  config.pretty_print_xml = true
 end
 
 require File.expand_path('marketo/client', File.dirname(__FILE__))
