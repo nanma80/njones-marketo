@@ -27,6 +27,25 @@ In ruby file:
 
     puts client.get_leads(:batchSize => 10)
 
+    options_xml = <<XMLTEXT
+    <startPosition>
+      <latestCreatedAt xsi:nil="true"/>
+      <oldestCreatedAt xsi:nil="true"/>
+      <activityCreatedAt>2013-02-01T10:00:00+00:00</activityCreatedAt>
+      <offset xsi:nil="true"/>
+    </startPosition>
+    <activityFilter>
+      <includeTypes>
+        <activityType>SendEmail</activityType>
+      </includeTypes>
+      <excludeTypes/>
+    </activityFilter>
+    <batchSize>10</batchSize> 
+    XMLTEXT
+
+    response = client.get_lead_changes(options_xml)
+
+
 In command line:
 
     bundle install

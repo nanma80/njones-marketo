@@ -89,6 +89,25 @@ module Rapleaf
         end
       end
 
+      def get_lead_changes(options = {})
+        begin
+          @logger.debug "#get_leads(#{options})" if @logger
+          response = send_request("ns1:paramsGetLeadChanges", options)
+          leads = []
+
+          return leads if response[:success_get_lead_changes][:result][:return_count] == '0'
+
+          response[:success_get_lead_changes][:result][:lead_change_record_list][:lead_change_record].each do |savon_hash|
+            leads << LeadChangeRecord.from_hash(savon_hash)
+          end
+          return leads
+        rescue => e
+          @logger.log(e) if @logger
+          raise e
+        end
+      end
+
+
       def set_logger(logger)
         @logger = logger
       end
