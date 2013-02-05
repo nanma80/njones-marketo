@@ -21,7 +21,7 @@ module Rapleaf
           savon_hash[:mkt_person_id].to_i, 
           savon_hash[:activity_type], 
           savon_hash[:activity_date_time], 
-          savon_hash[:asset], 
+          savon_hash[:mktg_asset_name], 
           savon_hash[:campaign])
         savon_hash[:activity_attributes][:attribute].each do |attribute|
           lead_change_record.set_attribute(attribute[:attr_name], attribute[:attr_value])
@@ -53,7 +53,7 @@ module Rapleaf
       end
 
       def to_s
-        "idnum: #{@idnum} mkt_person_idnum: #{@person_idnum} Type: #{@activity_type} Datetime: #{@activity_date_time}"
+        "idnum: #{@idnum} mkt_person_idnum: #{@person_idnum} Type: #{@activity_type} Datetime: #{@activity_date_time} #{@asset} #{@campaign} #{@attributes}"
       end
     end
   end
