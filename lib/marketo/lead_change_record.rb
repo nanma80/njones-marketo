@@ -1,20 +1,28 @@
 module Rapleaf
   module Marketo
     # Represents a record of the data known about a lead within marketo
-    attr_reader :idnum, :person_idnum, :attributes
+    attr_reader :idnum, :person_idnum, :attributes, :activity_type, :activity_date_time, :asset, :campaign
 
     class LeadChangeRecord
-      def initialize(idnum, person_idnum = nil, activity_type, activity_date_time)
+      def initialize(idnum, person_idnum = nil, activity_type, activity_date_time, asset, campaign)
         @idnum = idnum # id of the change record
         @person_idnum = person_idnum
         @activity_type = activity_type
         @activity_date_time = activity_date_time
         @attributes = {}
+        @asset = asset
+        @campaign = campaign
       end
 
       # hydrates an instance from a savon hash returned form the marketo API
       def self.from_hash(savon_hash)
-        lead_change_record = LeadChangeRecord.new(savon_hash[:id].to_i, savon_hash[:mkt_person_id].to_i, savon_hash[:activity_type], savon_hash[:activity_date_time])
+        lead_change_record = LeadChangeRecord.new(
+          savon_hash[:id].to_i, 
+          savon_hash[:mkt_person_id].to_i, 
+          savon_hash[:activity_type], 
+          savon_hash[:activity_date_time], 
+          savon_hash[:asset], 
+          savon_hash[:campaign])
         savon_hash[:activity_attributes][:attribute].each do |attribute|
           lead_change_record.set_attribute(attribute[:attr_name], attribute[:attr_value])
         end
@@ -45,7 +53,7 @@ module Rapleaf
       end
 
       def to_s
-        "idnum: #{@idnum}. mkt_person_idnum: #{@person_idnum}"
+        "idnum: #{@idnum} mkt_person_idnum: #{@person_idnum} Type: #{@activity_type} Datetime: #{@activity_date_time}"
       end
     end
   end
