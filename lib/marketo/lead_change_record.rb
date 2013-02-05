@@ -1,9 +1,9 @@
 module Rapleaf
   module Marketo
     # Represents a record of the data known about a lead within marketo
-    attr_reader :idnum, :person_idnum, :attributes, :activity_type, :activity_date_time, :asset, :campaign
-
     class LeadChangeRecord
+      attr_reader :idnum, :person_idnum, :attributes, :activity_type, :activity_date_time, :asset, :campaign
+
       def initialize(idnum, person_idnum = nil, activity_type, activity_date_time, asset, campaign)
         @idnum = idnum # id of the change record
         @person_idnum = person_idnum
@@ -53,7 +53,7 @@ module Rapleaf
       end
 
       def to_s
-        "idnum: #{@idnum} mkt_person_idnum: #{@person_idnum} Type: #{@activity_type} Datetime: #{@activity_date_time} #{@asset} #{@campaign} #{@attributes}"
+        "idnum: #{idnum} mkt_person_idnum: #{@person_idnum} Type: #{@activity_type} Datetime: #{@activity_date_time} #{@asset} #{@campaign} #{@attributes}"
       end
     end
   end
